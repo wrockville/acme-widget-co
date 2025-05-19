@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Acme\WidgetCo\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Acme\WidgetCo\{Basket, Product};
+use Acme\WidgetCo\{Basket, Offers\RedWidgetDiscount, Product};
 
-class BasketTest extends TestCase
+final class BasketTest extends TestCase
 {
     private array $catalog;
     private array $deliveryRules;
@@ -29,17 +29,7 @@ class BasketTest extends TestCase
         ksort($this->deliveryRules);
 
         $this->offers = [
-            // 2 for 1 on R01
-            'R01' => function (string $price, int $qty): string {
-                $pairs     = intdiv($qty, 2);
-                $remainder = $qty % 2;
-
-                $halfPrice      = bcdiv($price, '2', 2);
-                $pairTotal      = bcmul(bcadd($price, $halfPrice, 2), (string)$pairs, 2);
-                $remainderTotal = bcmul($price, (string)$remainder, 2);
-
-                return bcadd($pairTotal, $remainderTotal, 2);
-            },
+            'R01' => new RedWidgetDiscount(),
         ];
     }
 
