@@ -6,10 +6,19 @@ This is a proof-of-concept project for Acme Widget Co.
 
 * PHP 8.4
 * ext-json
-* Composer _(optional for PHPUnit testing)_
-* PHPUnit _(optional for Composer testing)_
+* ext-bcmath
+* Composer
+* PHPUnit
 
-## Installation:
+## Usage:
 * Clone the repository: https://github.com/wrockville/acme-widget-co.git
-* Run `composer install`
-* Run `phpunit`
+* Run `composer install` in the project directory to install dependencies.
+* Run `phpunit` in the project directory to run tests.
+
+## File Structure:
+* `/src/Basket.php` - The Basket class.
+* `/src/Product.php` - The Product class.
+* `/tests/BasketTest.php` - The Unit tests.
+* `/composer.json` - The Composer configuration file.
+* `/phpunit.xml` - The PHPUnit configuration file.
+* `/README.md` - This file.
