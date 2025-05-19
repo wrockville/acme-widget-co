@@ -41,9 +41,9 @@ class BasketTest extends TestCase
 
     public function test_total_with_b01_and_g01(): void
     {
-        $backet = new Basket($this->catalog, $this->deliveryRules, $this->offers);
-        $backet->add('B01');
-        $backet->add('G01');
-        $this->assertEquals(37.85, $backet->total());
+        $basket = new Basket($this->catalog, $this->deliveryRules, $this->offers);
+        $basket->add('B01');
+        $basket->add('G01');
+        $this->assertEquals(37.85, $basket->total());
     }
 }
