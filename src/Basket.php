@@ -13,6 +13,9 @@ final class Basket
 
     public function add(string $code): void
     {
+        if (!isset($this->catalog[$code])) {
+            throw new \InvalidArgumentException("Product $code not found");
+        }
         $this->items[] = $code;
     }
 
