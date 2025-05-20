@@ -56,7 +56,8 @@ acme-widget-co/
 │   └── Offers/
 │       └── RedWidgetDiscountTest.php
 ├── composer.json
-└── README.md
+├── README.md
+└── .gitignore
 ```
 
 ## Usage:
