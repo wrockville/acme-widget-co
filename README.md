@@ -61,7 +61,7 @@ acme-widget-co/
 
 ## Usage:
 
-* Clone the repository: https://github.com/wrockville/acme-widget-co.git
+* Clone the repository:
    ```bash
    git clone https://github.com/wrockville/acme-widget-co.git
    ```
