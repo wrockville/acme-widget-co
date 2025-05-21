@@ -13,6 +13,11 @@ final class BasketTest extends TestCase
     private array $deliveryRules;
     private array $offers;
 
+    /**
+     * Initializes and sets up the required data for the test environment.
+     *
+     * @return void
+     */
     protected function setUp(): void
     {
         $this->catalog = [
@@ -33,6 +38,11 @@ final class BasketTest extends TestCase
         ];
     }
 
+    /**
+     * Tests the total calculation of the basket when products B01 and G01 are added.
+     *
+     * @return void
+     */
     public function test_total_with_b01_and_g01(): void
     {
         $basket = new Basket($this->catalog, $this->deliveryRules, $this->offers);
@@ -41,6 +51,11 @@ final class BasketTest extends TestCase
         $this->assertEquals(37.85, $basket->total());
     }
 
+    /**
+     * Tests the total calculation of the basket when product R01 is added twice.
+     *
+     * @return void
+     */
     public function test_total_with_two_r01(): void
     {
         $basket = new Basket($this->catalog, $this->deliveryRules, $this->offers);
@@ -49,6 +64,11 @@ final class BasketTest extends TestCase
         $this->assertEquals(54.37, $basket->total());
     }
 
+    /**
+     * Tests the total calculation of the basket when products R01 and G01 are added.
+     *
+     * @return void
+     */
     public function test_total_with_r01_and_g01(): void
     {
         $basket = new Basket($this->catalog, $this->deliveryRules, $this->offers);
@@ -57,6 +77,11 @@ final class BasketTest extends TestCase
         $this->assertEquals(60.85, $basket->total());
     }
 
+    /**
+     * Tests the total calculation of the basket when multiple products are added.
+     *
+     * @return void
+     */
     public function test_total_with_multiple_products(): void
     {
         $basket = new Basket($this->catalog, $this->deliveryRules, $this->offers);

@@ -8,6 +8,12 @@ use Acme\WidgetCo\Offers\RedWidgetDiscount;
 
 final class RedWidgetDiscountTest extends TestCase
 {
+    /**
+     * Tests if the discount is applied correctly based on the quantity of items purchased
+     * and confirms the resulting total price matches the expected values.
+     *
+     * @return void
+     */
     public function test_applies_discount_correctly(): void
     {
         $offer     = new RedWidgetDiscount();
