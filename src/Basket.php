@@ -45,15 +45,42 @@ final class Basket
      */
     public function total(): float
     {
-        // Compute item counts
+        $quantities  = $this->getQuantities();
+        $subtotal    = $this->getSubtotal($quantities);
+        $deliveryFee = $this->getDeliveryFee($subtotal);
+
+        return (float)bcadd($subtotal, $deliveryFee, 2);
+    }
+
+    /**
+     * Get the quantity of each product in the catalog.
+     *
+     * @return array
+     */
+    private function getQuantities(): array
+    {
         $counts = [];
+
         foreach ($this->items as $product) {
             $counts[$product->code] = ($counts[$product->code] ?? 0) + 1;
         }
 
-        // Compute subtotal
-        $subtotal = "0.0";
-        foreach ($counts as $code => $qty) {
+        return $counts;
+    }
+
+    /**
+     * Calculate the subtotal for the items based on their quantities, prices, and applicable offers.
+     *
+     * @param array $quantities An associative array where the keys are product codes and the values are quantities.
+     *
+     * @return string The calculated subtotal as a string formatted to two decimal places.
+     * @throws \InvalidArgumentException If an offer is not callable.
+     */
+    private function getSubtotal(array $quantities): string
+    {
+        $subtotal = '0.0';
+
+        foreach ($quantities as $code => $qty) {
             $price = number_format($this->catalog[$code]->price, 2, '.', '');
 
             // Apply offer
@@ -71,15 +98,24 @@ final class Basket
             $subtotal = bcadd($subtotal, $line, 2);
         }
 
-        // Add delivery fee
-        $deliveryFee = "0.0";
+        return $subtotal;
+    }
+
+    /**
+     * Calculate the delivery fee based on the provided subtotal and delivery rules.
+     *
+     * @param string $subtotal The order subtotal to evaluate for delivery fee calculation.
+     *
+     * @return string The calculated delivery fee, formatted as a string with two decimals.
+     */
+    private function getDeliveryFee(string $subtotal): string
+    {
         foreach ($this->deliveryRules as $threshold => $fee) {
             if ((float)$subtotal < $threshold) {
-                $deliveryFee = number_format($fee, 2, '.', '');
-                break;
+                return number_format($fee, 2, '.', '');
             }
         }
 
-        return (float)bcadd($subtotal, $deliveryFee, 2);
+        return '0.0';
     }
 }
